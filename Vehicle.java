@@ -1,11 +1,10 @@
-package practica3;
+package javaP3;
 
 public class Vehicle {
 
     private String matricula;
     private int km;
     private int pes;
-
 
 
 

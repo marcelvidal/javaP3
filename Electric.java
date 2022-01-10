@@ -1,18 +1,16 @@
-package practica3;
+package javaP3;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.sql.Array;
 
 public class Electric extends Vehicle implements Comparacio {
 
     private int bateria;
-    private final int Co2 = 375; // 100km
 
 
     public Electric(String matricula, int km, int pes) {
         super(matricula, km, pes);
-        this.bateria = getBateria();
+        this.bateria = 5; //*100km
 
     }
 
@@ -20,29 +18,23 @@ public class Electric extends Vehicle implements Comparacio {
     @Override
     public double getEmissioPerUs() {
 
-        int emissions = getBateria();
-
-        int consum1Km = (emissions * 1) / 100; // GRAMS PER UN KM DE CO2
-
-        double emisioKmCotxe = getKm() * consum1Km; // 1km recprregut * GRAMS DE C02 CADA KM
-
-        return emisioKmCotxe;
+        double resultat = getKm() * getBateria();
+        return resultat;
 
 
     }
 
 
-    public int getBateria() {
-
+    public double getBateria() {
+        double consum1km =0;
         if (getPes() >= 2000) {
-            int consum1km = (Co2 * 2) * 1000; // 345 "co2" * doble per pes "2" * 1000 "transformar a grams"
+           consum1km = ((double)this.bateria * 2) /100; // * 1 km recorregut
             return consum1km;
         } else if (getPes() <= 500) {
-            double consum1km = (Co2 * 0.5) * 1000;
-            return (int) consum1km;
-        } else {
-            int consum1km = Co2 * 1000;
+            consum1km = ((double)this.bateria * 0.5) / 100;
             return consum1km;
+        } else {
+            return (double)this.bateria /100;
         }
 
     }
@@ -63,7 +55,7 @@ public class Electric extends Vehicle implements Comparacio {
             } else {
 
                 if (v[i] instanceof Electric) {
-                    if (v[i + 1] != null ) {
+                    if (v[i + 1] != null) {
                         if (v[i].getEmissioPerUs() > v[i + 1].getEmissioPerUs()) {
                             resultatE = v[i].getEmissioPerUs();
                         } else {
@@ -74,7 +66,7 @@ public class Electric extends Vehicle implements Comparacio {
 
                 }
                 if (v[i] instanceof Combustio) {
-                    if (v[i + 1] != null ) {
+                    if (v[i + 1] != null) {
                         if (v[i].getEmissioPerUs() > v[i + 1].getEmissioPerUs()) {
                             resultatC = v[i].getEmissioPerUs();
                         } else {

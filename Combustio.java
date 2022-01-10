@@ -1,16 +1,15 @@
-package practica3;
+package javaP3;
 
-public class Combustio extends Vehicle implements Comparacio{
+public class Combustio extends Vehicle implements Comparacio {
 
-    private final int C02 = 245; // 100km
+
     private int emissions;
 
 
     public Combustio(String matricula, int km, int pes) {
         super(matricula, km, pes);
-        this.emissions = getEmissions();
+        this.emissions = 6;
     }
-
 
 
     public static boolean mes(Vehicle v[]) {
@@ -23,7 +22,7 @@ public class Combustio extends Vehicle implements Comparacio{
             } else {
 
                 if (v[i] instanceof Electric) {
-                    if (v[i + 1] != null ) {
+                    if (v[i + 1] != null) {
                         if (v[i].getEmissioPerUs() > v[i + 1].getEmissioPerUs()) {
                             resultatE = v[i].getEmissioPerUs();
                         } else {
@@ -45,12 +44,13 @@ public class Combustio extends Vehicle implements Comparacio{
             }
         }
         if (resultatE > resultatC) {
-
             System.out.println("El coche Electric gasta mes ");
-            return true;
+            return false;
+
         } else {
             System.out.println("El coche combustio gasta mes");
-            return false;
+
+            return true;
         }
 
 
@@ -58,24 +58,15 @@ public class Combustio extends Vehicle implements Comparacio{
 
 
     public double getEmissioPerUs() {
-
-        int emissions = getEmissions();
-
-        int consum1Km = (emissions * 1) / 100; // GRAMS PER UN KM DE CO2
-
-        double emisioKmCotxe = getKm() * consum1Km; // 1km recprregut * GRAMS DE C02 CADA KM
-
-        return emisioKmCotxe;
-
+        double resultat = getKm() * getEmissions();
+        return resultat;
     }
 
 
     // EMISIONS  PER CADA 100 KM RECORREGUT
 
-    public int getEmissions() {
-
-        this.emissions = C02 * 1000; // GRAMS PER CADA 100 KM
-        return this.emissions;
+    public double getEmissions() {
+        return (double)this.emissions / 100; // emisions per 1 km
 
     }
 
